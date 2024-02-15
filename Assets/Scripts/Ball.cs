@@ -38,24 +38,33 @@ public class Ball : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        Transform t = GetComponent<Transform>();
-        t.position = new Vector3(0f, 0.5f, 0f);
-        Rigidbody rb = GetComponent<Rigidbody>();
-        rb.velocity = Vector3.zero;
-        if(leftScore < 11 && rightScore < 11){
-            if(collision.gameObject.name == "Left Goal"){
-                rightScore += 1;
-                rb.AddForce(Vector3.left * 1000, ForceMode.Force);
-                Debug.Log($"Right Scored! {leftScore}:{rightScore}");
-                SetRightText();
-            } else if(collision.gameObject.name == "Right Goal"){
-                leftScore += 1;
-                rb.AddForce(Vector3.right * 1000, ForceMode.Force);
-                Debug.Log($"Left Scored! {leftScore}:{rightScore}");
-                SetLeftText();
-            }
+        if(collision.gameObject.name == "Left Goal"){
+            Transform t = GetComponent<Transform>();
+            t.position = new Vector3(0f, 0.5f, 0f);
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.velocity = Vector3.zero;
+
+            rightScore += 1;
+            rb.AddForce(Vector3.left * 1000, ForceMode.Force);
+            Debug.Log($"Right Scored! {leftScore}:{rightScore}");
+
+            rightText.color = Random.ColorHSV();
+            SetRightText();
+        } else if(collision.gameObject.name == "Right Goal"){
+            Transform t = GetComponent<Transform>();
+            t.position = new Vector3(0f, 0.5f, 0f);
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.velocity = Vector3.zero;
+
+            leftScore += 1;
+            rb.AddForce(Vector3.right * 1000, ForceMode.Force);
+            Debug.Log($"Left Scored! {leftScore}:{rightScore}");
+
+            leftText.color = Random.ColorHSV();
+            SetLeftText();
+        }
+        if(collision.gameObject.name == "Right Goal" || collision.gameObject.name == "Left Goal"){
             Debug.Log($"Left-to-Right = {leftScore}:{rightScore}");
-        } else {
             if(leftScore == 11){
                 Debug.Log("Game Over, Left Paddle Wins");
             } else if(rightScore == 11){

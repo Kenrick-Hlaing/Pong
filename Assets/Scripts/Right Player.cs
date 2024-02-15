@@ -50,5 +50,9 @@ public class RightPlayer : MonoBehaviour
             rb.AddForce(bounce * 1000f, ForceMode.Force);
         }
         
+        if(collision.gameObject.name == "Ball"){
+            AudioSource audioSrc = GetComponent<AudioSource>();
+            audioSrc.Play();
+        }
     }
 }

@@ -49,5 +49,10 @@ public class Player : MonoBehaviour
         if(rb != null){
             rb.AddForce(bounce * 1000f, ForceMode.Force);
         }
+
+        if(collision.gameObject.name == "Ball"){
+            AudioSource audioSrc = GetComponent<AudioSource>();
+            audioSrc.Play();
+        }
     }
 }
